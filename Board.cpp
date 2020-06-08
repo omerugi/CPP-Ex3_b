@@ -19,6 +19,9 @@ Soldier *Board::operator[](std::pair<int, int> location) const {
 }
 
 void Board::move(uint player_number, std::pair<int, int> source, Board::MoveDIR direction) {
+    if(source.first<0||source.first>=board.size()||source.second<0||source.second>=board[0].size()){
+        throw runtime_error("no suck place");
+    }
     if(board[source.first][source.second]==nullptr){
         throw runtime_error("no one there");
     }
@@ -51,7 +54,7 @@ void Board::move(uint player_number, std::pair<int, int> source, Board::MoveDIR 
 
     }
     if (direction == Board::MoveDIR::Right) {
-        if(source.first==board[0].size()-1){
+        if(source.second==board[0].size()-1){
             throw runtime_error("out of lenght");
         }
         if(board[source.first][source.second+1]!= nullptr){
@@ -64,7 +67,7 @@ void Board::move(uint player_number, std::pair<int, int> source, Board::MoveDIR 
 
     }
     if (direction == Board::MoveDIR::Left) {
-        if(source.first==0){
+        if(source.second==0){
             throw runtime_error("out of lenght");
         }
         if(board[source.first][source.second-1]!= nullptr){
@@ -90,3 +93,4 @@ bool Board::has_soldiers(uint player_number) const {
     }
     return false;
 }
+
